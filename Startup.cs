@@ -35,8 +35,8 @@ namespace PNT1_Grupo6
 				options.CheckConsentNeeded = context => true;
 				options.MinimumSameSitePolicy = SameSiteMode.None;
 			});
-			services.AddDbContext<EscuelaDatabaseContext>(options =>
-			options.UseSqlServer(Configuration["ConnectionString:EscuelaDBConnection"
+			services.AddDbContext<GestorDatabaseContext>(options =>
+			options.UseSqlServer(Configuration["ConnectionString:GestorDBConnection"
 			]));
 			services.AddMvc().AddNewtonsoftJson(options =>
 		   options.SerializerSettings.ReferenceLoopHandling =

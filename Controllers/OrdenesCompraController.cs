@@ -10,22 +10,22 @@ using PNT1_Grupo6.Models;
 
 namespace PNT1_Grupo6.Controllers
 {
-    public class EstudiantesController : Controller
+    public class OrdenesCompraController : Controller
     {
-        private readonly EscuelaDatabaseContext _context;
+        private readonly GestorDatabaseContext _context;
 
-        public EstudiantesController(EscuelaDatabaseContext context)
+        public OrdenesCompraController(GestorDatabaseContext context)
         {
             _context = context;
         }
 
-        // GET: Estudiantes
+        // GET: OrdenesCompra
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Estudiantes.ToListAsync());
+            return View(await _context.OrdenesCompra.ToListAsync());
         }
 
-        // GET: Estudiantes/Details/5
+        // GET: OrdenesCompra/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -33,39 +33,39 @@ namespace PNT1_Grupo6.Controllers
                 return NotFound();
             }
 
-            var estudiante = await _context.Estudiantes
+            var ordenCompra = await _context.OrdenesCompra
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (estudiante == null)
+            if (ordenCompra == null)
             {
                 return NotFound();
             }
 
-            return View(estudiante);
+            return View(ordenCompra);
         }
 
-        // GET: Estudiantes/Create
+        // GET: OrdenesCompra/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Estudiantes/Create
+        // POST: OrdenesCompra/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Nombre,Edad,FechaInscripto,DeporteFavorito")] Estudiante estudiante)
+        public async Task<IActionResult> Create([Bind("Id,NumeroOrden,CodigoProveedor,NombreProveedor,CodigoProducto,NombreProducto,PrecioUnitario,Cantidad,Estado")] OrdenCompra ordenCompra)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(estudiante);
+                _context.Add(ordenCompra);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(estudiante);
+            return View(ordenCompra);
         }
 
-        // GET: Estudiantes/Edit/5
+        // GET: OrdenesCompra/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -73,22 +73,22 @@ namespace PNT1_Grupo6.Controllers
                 return NotFound();
             }
 
-            var estudiante = await _context.Estudiantes.FindAsync(id);
-            if (estudiante == null)
+            var ordenCompra = await _context.OrdenesCompra.FindAsync(id);
+            if (ordenCompra == null)
             {
                 return NotFound();
             }
-            return View(estudiante);
+            return View(ordenCompra);
         }
 
-        // POST: Estudiantes/Edit/5
+        // POST: OrdenesCompra/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Nombre,Edad,FechaInscripto,DeporteFavorito")] Estudiante estudiante)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,NumeroOrden,CodigoProveedor,NombreProveedor,CodigoProducto,NombreProducto,PrecioUnitario,Cantidad,Estado")] OrdenCompra ordenCompra)
         {
-            if (id != estudiante.Id)
+            if (id != ordenCompra.Id)
             {
                 return NotFound();
             }
@@ -97,12 +97,12 @@ namespace PNT1_Grupo6.Controllers
             {
                 try
                 {
-                    _context.Update(estudiante);
+                    _context.Update(ordenCompra);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!EstudianteExists(estudiante.Id))
+                    if (!OrdenCompraExists(ordenCompra.Id))
                     {
                         return NotFound();
                     }
@@ -113,10 +113,10 @@ namespace PNT1_Grupo6.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(estudiante);
+            return View(ordenCompra);
         }
 
-        // GET: Estudiantes/Delete/5
+        // GET: OrdenesCompra/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -124,30 +124,30 @@ namespace PNT1_Grupo6.Controllers
                 return NotFound();
             }
 
-            var estudiante = await _context.Estudiantes
+            var ordenCompra = await _context.OrdenesCompra
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (estudiante == null)
+            if (ordenCompra == null)
             {
                 return NotFound();
             }
 
-            return View(estudiante);
+            return View(ordenCompra);
         }
 
-        // POST: Estudiantes/Delete/5
+        // POST: OrdenesCompra/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var estudiante = await _context.Estudiantes.FindAsync(id);
-            _context.Estudiantes.Remove(estudiante);
+            var ordenCompra = await _context.OrdenesCompra.FindAsync(id);
+            _context.OrdenesCompra.Remove(ordenCompra);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool EstudianteExists(int id)
+        private bool OrdenCompraExists(int id)
         {
-            return _context.Estudiantes.Any(e => e.Id == id);
+            return _context.OrdenesCompra.Any(e => e.Id == id);
         }
     }
 }

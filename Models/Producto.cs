@@ -4,20 +4,20 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
+
 namespace PNT1_Grupo6.Models
 {
-	public class Estudiante
+	public class Producto
 	{
 		[Key]
 		[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-		public int Id { get; set; }
+		[Display(Name = "Código Producto")]
+		public string CodigoProducto { get; set; }
+		[Display(Name = "Producto")]
 		public string Nombre { get; set; }
-		public string Apellido { get; set; }
-
-		public int Edad { get; set; }
-		[Display(Name = "Fecha inscripción")]
-		public DateTime FechaInscripto { get; set; }
-		[EnumDataType(typeof(Deporte))]
-		public Deporte DeporteFavorito { get; set; }
+		public int Stock { get; set; }
+		public int MaximoAlmacenable { get; set; }
+		public string Descripcion { get; set; }
+		public double PrecioVenta { get; set; }
 	}
 }

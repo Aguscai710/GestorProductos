@@ -9,19 +9,19 @@ using PNT1_Grupo6.Context;
 
 namespace PNT1_Grupo6.Migrations
 {
-    [DbContext(typeof(EscuelaDatabaseContext))]
-    [Migration("20230531232241_PNT1_Grupo6.Context.EscuelaDatabaseContext")]
-    partial class PNT1_Grupo6ContextEscuelaDatabaseContext
+    [DbContext(typeof(GestorDatabaseContext))]
+    [Migration("20230607224446_PNT1_Grupo6.Context.GestorDatabaseContext5")]
+    partial class PNT1_Grupo6ContextGestorDatabaseContext5
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "3.1.3")
+                .HasAnnotation("ProductVersion", "3.1.32")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("PNT1_Grupo6.Models.Estudiante", b =>
+            modelBuilder.Entity("PNT1_Grupo6.Models.Usuario", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -42,7 +42,7 @@ namespace PNT1_Grupo6.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Estudiantes");
+                    b.ToTable("Usuarios");
                 });
 #pragma warning restore 612, 618
         }
