@@ -61,8 +61,11 @@ namespace PNT1_Grupo6.Controllers
                 _context.Add(usuario);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
-            } else {
-                TempData["AlertMessage"] = "Dni repetido.";
+            }
+            else
+            {
+                TempData["UsuariosError"] = "Dni repetido.";
+
                 return RedirectToAction(nameof(Index));
             }
             //return View(usuario);

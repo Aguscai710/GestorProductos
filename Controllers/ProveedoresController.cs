@@ -56,13 +56,18 @@ namespace PNT1_Grupo6.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,CodigoProveedor,Nombre,Email,Telefono,Rubro")] Proveedor proveedor)
         {
-            if (ModelState.IsValid)
+            if (ModelState.IsValid && !ProveedorExists(proveedor.CodigoProveedor))
             {
                 _context.Add(proveedor);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(proveedor);
+            else 
+            {
+                TempData["ProveedorError"] = "El proveedor con código: " + proveedor.CodigoProveedor + " ya se encuentra registrado.";
+                return RedirectToAction(nameof(Index));
+            }
+            //return View(proveedor);
         }
 
         // GET: Proveedores/Edit/5
@@ -148,6 +153,11 @@ namespace PNT1_Grupo6.Controllers
         private bool ProveedorExists(int id)
         {
             return _context.Proveedores.Any(e => e.Id == id);
+        }
+
+        private bool ProveedorExists(string code)
+        {
+            return _context.Proveedores.Any(e => e.CodigoProveedor == code);
         }
     }
 }

@@ -5,10 +5,10 @@
 }
 
 <h1>Index</h1>
-@if (TempData["AlertMessage"] != null)
+@if (TempData["UsuariosError"] != null)
 {
 <div class="alert alert-danger">
-    @TempData["AlertMessage"]
+    @TempData["UsuariosError"]
 </div>}
 <p>
     <a asp-action="Create">Create New</a>
