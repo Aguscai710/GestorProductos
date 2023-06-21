@@ -2,15 +2,17 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PNT1_Grupo6.Context;
 
 namespace PNT1_Grupo6.Migrations
 {
     [DbContext(typeof(GestorDatabaseContext))]
-    partial class GestorDatabaseContextModelSnapshot : ModelSnapshot
+    [Migration("20230620221430_PNT1_Grupo6-ProductoIdAsKey")]
+    partial class PNT1_Grupo6ProductoIdAsKey
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

@@ -26,7 +26,7 @@ namespace PNT1_Grupo6.Controllers
         }
 
         // GET: Productos/Details/5
-        public async Task<IActionResult> Details(string id)
+        public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
             {
@@ -34,7 +34,7 @@ namespace PNT1_Grupo6.Controllers
             }
 
             var producto = await _context.Productos
-                .FirstOrDefaultAsync(m => m.CodigoProducto == id);
+                .FirstOrDefaultAsync(m => m.Id == id);
             if (producto == null)
             {
                 return NotFound();
@@ -54,7 +54,7 @@ namespace PNT1_Grupo6.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("CodigoProducto,Nombre,Stock,MaximoAlmacenable,Descripcion,PrecioVenta")] Producto producto)
+        public async Task<IActionResult> Create([Bind("Id,CodigoProducto,Nombre,Stock,MaximoAlmacenable,Descripcion,PrecioVenta")] Producto producto)
         {
             if (ModelState.IsValid)
             {
@@ -66,7 +66,7 @@ namespace PNT1_Grupo6.Controllers
         }
 
         // GET: Productos/Edit/5
-        public async Task<IActionResult> Edit(string id)
+        public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
             {
@@ -86,9 +86,9 @@ namespace PNT1_Grupo6.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(string id, [Bind("CodigoProducto,Nombre,Stock,MaximoAlmacenable,Descripcion,PrecioVenta")] Producto producto)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,CodigoProducto,Nombre,Stock,MaximoAlmacenable,Descripcion,PrecioVenta")] Producto producto)
         {
-            if (id != producto.CodigoProducto)
+            if (id != producto.Id)
             {
                 return NotFound();
             }
@@ -102,7 +102,7 @@ namespace PNT1_Grupo6.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!ProductoExists(producto.CodigoProducto))
+                    if (!ProductoExists(producto.Id))
                     {
                         return NotFound();
                     }
@@ -117,7 +117,7 @@ namespace PNT1_Grupo6.Controllers
         }
 
         // GET: Productos/Delete/5
-        public async Task<IActionResult> Delete(string id)
+        public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
             {
@@ -125,7 +125,7 @@ namespace PNT1_Grupo6.Controllers
             }
 
             var producto = await _context.Productos
-                .FirstOrDefaultAsync(m => m.CodigoProducto == id);
+                .FirstOrDefaultAsync(m => m.Id == id);
             if (producto == null)
             {
                 return NotFound();
@@ -137,7 +137,7 @@ namespace PNT1_Grupo6.Controllers
         // POST: Productos/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(string id)
+        public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var producto = await _context.Productos.FindAsync(id);
             _context.Productos.Remove(producto);
@@ -145,9 +145,9 @@ namespace PNT1_Grupo6.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        private bool ProductoExists(string id)
+        private bool ProductoExists(int id)
         {
-            return _context.Productos.Any(e => e.CodigoProducto == id);
+            return _context.Productos.Any(e => e.Id == id);
         }
     }
 }

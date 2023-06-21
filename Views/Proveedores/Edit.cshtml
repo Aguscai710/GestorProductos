@@ -5,6 +5,11 @@
 }
 
 <h1>Edit</h1>
+@if (TempData["ProveedorError"] != null)
+{
+    <div class="alert alert-danger">
+        @TempData["ProveedorError"]
+    </div>}
 
 <h4>Proveedor</h4>
 <hr />
@@ -15,7 +20,7 @@
             <input type="hidden" asp-for="Id" />
             <div class="form-group">
                 <label asp-for="CodigoProveedor" class="control-label"></label>
-                <input asp-for="CodigoProveedor" class="form-control" />
+                <input asp-for="CodigoProveedor" class="form-control" readonly />
                 <span asp-validation-for="CodigoProveedor" class="text-danger"></span>
             </div>
             <div class="form-group">

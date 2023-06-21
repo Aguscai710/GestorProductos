@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -56,7 +57,7 @@ namespace PNT1_Grupo6.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,CodigoProveedor,Nombre,Email,Telefono,Rubro")] Proveedor proveedor)
         {
-            if (ModelState.IsValid && !ProveedorExists(proveedor.CodigoProveedor))
+            if (ModelState.IsValid && ValidateData(proveedor.CodigoProveedor, proveedor.Email))
             {
                 _context.Add(proveedor);
                 await _context.SaveChangesAsync();
@@ -64,7 +65,6 @@ namespace PNT1_Grupo6.Controllers
             }
             else 
             {
-                TempData["ProveedorError"] = "El proveedor con código: " + proveedor.CodigoProveedor + " ya se encuentra registrado.";
                 return RedirectToAction(nameof(Index));
             }
             //return View(proveedor);
@@ -100,6 +100,11 @@ namespace PNT1_Grupo6.Controllers
 
             if (ModelState.IsValid)
             {
+                if (!ValidEmail(proveedor.Email))
+                {
+                    TempData["ProveedorError"] = "El email provisto no cumple con el formato esperado.";
+                    return View(proveedor);
+                }
                 try
                 {
                     _context.Update(proveedor);
@@ -155,9 +160,38 @@ namespace PNT1_Grupo6.Controllers
             return _context.Proveedores.Any(e => e.Id == id);
         }
 
+        private bool ValidateData(string code, string email)
+        {
+            bool state = false;
+            if (ProveedorExists(code))
+            {
+                TempData["ProveedorError"] = "El proveedor con código: " + code + " ya se encuentra registrado.";
+            }
+            else if (!ValidEmail(email))
+            {
+                TempData["ProveedorError"] = "El email provisto no cumple con el formato esperado.";
+            }
+            else 
+            {
+                state = true;
+            }
+            return state;
+        }
+
         private bool ProveedorExists(string code)
         {
             return _context.Proveedores.Any(e => e.CodigoProveedor == code);
+        }
+
+        private bool ValidEmail(string email) 
+        {
+            // Expresión regular para validar direcciones de correo electrónico
+            string pattern = @"^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$";
+
+            // Comprobar si el correo electrónico coincide con el patrón
+            Match match = Regex.Match(email, pattern);
+
+            return match.Success;
         }
     }
 }
