@@ -5,6 +5,11 @@
 }
 
 <h1>Edit</h1>
+@if (TempData["OrdenCompraError"] != null)
+{
+    <div class="alert alert-danger">
+        @TempData["OrdenCompraError"]
+    </div>}
 
 <h4>OrdenCompra</h4>
 <hr />
@@ -15,27 +20,27 @@
             <input type="hidden" asp-for="Id" />
             <div class="form-group">
                 <label asp-for="NumeroOrden" class="control-label"></label>
-                <input asp-for="NumeroOrden" class="form-control" />
+                <input asp-for="NumeroOrden" class="form-control" readonly/>
                 <span asp-validation-for="NumeroOrden" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="CodigoProveedor" class="control-label"></label>
-                <input asp-for="CodigoProveedor" class="form-control" />
+                <input asp-for="CodigoProveedor" class="form-control" readonly/>
                 <span asp-validation-for="CodigoProveedor" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="NombreProveedor" class="control-label"></label>
-                <input asp-for="NombreProveedor" class="form-control" />
+                <input asp-for="NombreProveedor" class="form-control" readonly/>
                 <span asp-validation-for="NombreProveedor" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="CodigoProducto" class="control-label"></label>
-                <input asp-for="CodigoProducto" class="form-control" />
+                <input asp-for="CodigoProducto" class="form-control" readonly/>
                 <span asp-validation-for="CodigoProducto" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="NombreProducto" class="control-label"></label>
-                <input asp-for="NombreProducto" class="form-control" />
+                <input asp-for="NombreProducto" class="form-control" readonly/>
                 <span asp-validation-for="NombreProducto" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -50,7 +55,8 @@
             </div>
             <div class="form-group">
                 <label asp-for="Estado" class="control-label"></label>
-                <select asp-for="Estado" class="form-control"></select>
+                <select asp-for="Estado" class="form-control" asp-items="Html.GetEnumSelectList<EstadoOrdenCompra>()">
+                </select>
                 <span asp-validation-for="Estado" class="text-danger"></span>
             </div>
             <div class="form-group">

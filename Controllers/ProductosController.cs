@@ -56,13 +56,17 @@ namespace PNT1_Grupo6.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,CodigoProducto,Nombre,Stock,MaximoAlmacenable,Descripcion,PrecioVenta")] Producto producto)
         {
-            if (ModelState.IsValid)
+            if (ModelState.IsValid && ValidateData(producto))
             {
                 _context.Add(producto);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(producto);
+            else
+            {
+                return RedirectToAction(nameof(Index));
+            }
+            //return View(producto);
         }
 
         // GET: Productos/Edit/5
@@ -95,6 +99,10 @@ namespace PNT1_Grupo6.Controllers
 
             if (ModelState.IsValid)
             {
+                if (!ValidateStockAndPricing(producto))
+                {
+                    return View(producto);
+                }
                 try
                 {
                     _context.Update(producto);
@@ -148,6 +156,42 @@ namespace PNT1_Grupo6.Controllers
         private bool ProductoExists(int id)
         {
             return _context.Productos.Any(e => e.Id == id);
+        }
+
+        private bool ProductoExistsByCode(string code)
+        {
+            return _context.Productos.Any(e => e.CodigoProducto == code);
+        }
+
+        private bool ValidateStockAndPricing(Producto producto)
+        {
+            bool isValid = true;
+            if (producto.PrecioVenta <= 0)
+            {
+                TempData["ProductoError"] = "Fije un precio positivo!.";
+                isValid = false;
+            }
+            else if (producto.Stock > producto.MaximoAlmacenable || producto.Stock < 0 || producto.MaximoAlmacenable <= 0)
+            {
+                TempData["ProductoError"] = "El stock no puede ser nulo o mayor al máximo almacenable.";
+                isValid = false;
+            }
+            return isValid;
+        }
+        private bool ValidateData(Producto producto)
+        {
+            bool isValid = true;
+            if (ProductoExistsByCode(producto.CodigoProducto))
+            {
+                TempData["ProductoError"] = "El producto: " + producto.CodigoProducto + " ya se encuentra registrado.";
+                isValid = false;
+            }
+            else if (!ValidateStockAndPricing(producto)) 
+            {
+                isValid = false;
+            }
+            
+            return isValid;
         }
     }
 }

@@ -56,13 +56,13 @@ namespace PNT1_Grupo6.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,NumeroOrden,CodigoProveedor,NombreProveedor,CodigoProducto,NombreProducto,PrecioUnitario,Cantidad,Estado")] OrdenCompra ordenCompra)
         {
-            if (ModelState.IsValid)
+            if (ModelState.IsValid && ValidateData(ordenCompra))
             {
                 _context.Add(ordenCompra);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(ordenCompra);
+            return RedirectToAction(nameof(Index));
         }
 
         // GET: OrdenesCompra/Edit/5
@@ -95,6 +95,17 @@ namespace PNT1_Grupo6.Controllers
 
             if (ModelState.IsValid)
             {
+                if (!ValidatePrice(ordenCompra.PrecioUnitario))
+                {
+                    TempData["OrdenCompraError"] = "Elija un precio real.";
+                    return View(ordenCompra);
+                }
+                else if (!ValidateQuantity(ordenCompra.Cantidad))
+                {
+                    TempData["OrdenCompraError"] = "La cantidad del producto no es válida.";
+                    return View(ordenCompra);
+                }
+
                 try
                 {
                     _context.Update(ordenCompra);
@@ -148,6 +159,41 @@ namespace PNT1_Grupo6.Controllers
         private bool OrdenCompraExists(int id)
         {
             return _context.OrdenesCompra.Any(e => e.Id == id);
+        }
+
+        private bool OrdenCompraExistsByOrder(string order)
+        {
+            return _context.OrdenesCompra.Any(e => e.NumeroOrden == order);
+        }
+
+        private bool ValidatePrice(double price)
+        {
+            return (price > 0);
+        }
+        private bool ValidateQuantity(int quantity)
+        {
+            return (quantity > 0);
+        }
+
+        private bool ValidateData(OrdenCompra order)
+        {
+            bool isValid = true;
+            if (OrdenCompraExistsByOrder(order.NumeroOrden))
+            {
+                TempData["OrdenCompraError"] = "La orden con número: " + order.NumeroOrden + " ya se encuentra registrada.";
+                isValid = false;
+            }
+            else if (!ValidatePrice(order.PrecioUnitario))
+            {
+                TempData["OrdenCompraError"] = "Elija un precio real.";
+                isValid = false;
+            }
+            else if (!ValidateQuantity(order.Cantidad))
+            {
+                TempData["OrdenCompraError"] = "La cantidad del producto no es válida.";
+                isValid = false;
+            }
+            return isValid;
         }
     }
 }
