@@ -74,7 +74,7 @@ namespace PNT1_Grupo6
 			{
 				endpoints.MapControllerRoute(
 					name: "default",
-					pattern: "{controller=Home}/{action=Index}/{id?}");
+					pattern: "{controller=Sessions}/{action=Index}/{id?}");
 			});
 		}
 

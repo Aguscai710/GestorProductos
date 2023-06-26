@@ -45,6 +45,7 @@ namespace PNT1_Grupo6.Controllers
         }
 
         // GET: Proveedores/Create
+        [AuthorizeRole(Rol.Admin)]
         public IActionResult Create()
         {
             return View();
@@ -55,6 +56,7 @@ namespace PNT1_Grupo6.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [AuthorizeRole(Rol.Admin)]
         public async Task<IActionResult> Create([Bind("Id,CodigoProveedor,Nombre,Email,Telefono,Rubro")] Proveedor proveedor)
         {
             if (ModelState.IsValid && ValidateData(proveedor.CodigoProveedor, proveedor.Email))
@@ -71,6 +73,7 @@ namespace PNT1_Grupo6.Controllers
         }
 
         // GET: Proveedores/Edit/5
+        [AuthorizeRole(Rol.Admin)]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -91,6 +94,7 @@ namespace PNT1_Grupo6.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [AuthorizeRole(Rol.Admin)]
         public async Task<IActionResult> Edit(int id, [Bind("Id,CodigoProveedor,Nombre,Email,Telefono,Rubro")] Proveedor proveedor)
         {
             if (id != proveedor.Id)
@@ -127,6 +131,7 @@ namespace PNT1_Grupo6.Controllers
         }
 
         // GET: Proveedores/Delete/5
+        [AuthorizeRole(Rol.Admin)]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -145,6 +150,7 @@ namespace PNT1_Grupo6.Controllers
         }
 
         // POST: Proveedores/Delete/5
+        [AuthorizeRole(Rol.Admin)]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)

@@ -44,6 +44,7 @@ namespace PNT1_Grupo6.Controllers
         }
 
         // GET: Productos/Create
+        [AuthorizeRole(Rol.Admin)]
         public IActionResult Create()
         {
             return View();
@@ -54,6 +55,7 @@ namespace PNT1_Grupo6.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [AuthorizeRole(Rol.Admin)]
         public async Task<IActionResult> Create([Bind("Id,CodigoProducto,Nombre,Stock,MaximoAlmacenable,Descripcion,PrecioVenta")] Producto producto)
         {
             if (ModelState.IsValid && ValidateData(producto))
@@ -125,6 +127,7 @@ namespace PNT1_Grupo6.Controllers
         }
 
         // GET: Productos/Delete/5
+        [AuthorizeRole(Rol.Admin)]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -145,6 +148,7 @@ namespace PNT1_Grupo6.Controllers
         // POST: Productos/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [AuthorizeRole(Rol.Admin)]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var producto = await _context.Productos.FindAsync(id);

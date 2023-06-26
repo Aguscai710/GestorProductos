@@ -20,12 +20,14 @@ namespace PNT1_Grupo6.Controllers
         }
 
         // GET: Usuarios
+        [AuthorizeRole(Rol.Admin)]
         public async Task<IActionResult> Index()
         {
             return View(await _context.Usuarios.ToListAsync());
         }
 
         // GET: Usuarios/Details/5
+        [AuthorizeRole(Rol.Admin)]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -44,6 +46,7 @@ namespace PNT1_Grupo6.Controllers
         }
 
         // GET: Usuarios/Create
+        [AuthorizeRole(Rol.Admin)]
         public IActionResult Create()
         {
             return View();
@@ -54,6 +57,7 @@ namespace PNT1_Grupo6.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [AuthorizeRole(Rol.Admin)]
         public async Task<IActionResult> Create([Bind("Id,Nombre,Apellido,Dni,Password,RolUsuario")] Usuario usuario)
         {
             if (ModelState.IsValid && !DniExists(usuario.Dni))
@@ -72,6 +76,7 @@ namespace PNT1_Grupo6.Controllers
         }
 
         // GET: Usuarios/Edit/5
+        [AuthorizeRole(Rol.Admin)]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -92,6 +97,7 @@ namespace PNT1_Grupo6.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [AuthorizeRole(Rol.Admin)]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Nombre,Apellido,Dni,Password,RolUsuario")] Usuario usuario)
         {
             if (id != usuario.Id)
@@ -123,6 +129,7 @@ namespace PNT1_Grupo6.Controllers
         }
 
         // GET: Usuarios/Delete/5
+        [AuthorizeRole(Rol.Admin)]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -141,6 +148,7 @@ namespace PNT1_Grupo6.Controllers
         }
 
         // POST: Usuarios/Delete/5
+        [AuthorizeRole(Rol.Admin)]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)

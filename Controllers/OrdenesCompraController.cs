@@ -66,6 +66,7 @@ namespace PNT1_Grupo6.Controllers
         }
 
         // GET: OrdenesCompra/Edit/5
+        [AuthorizeRole(Rol.Admin)]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -86,6 +87,7 @@ namespace PNT1_Grupo6.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [AuthorizeRole(Rol.Admin)]
         public async Task<IActionResult> Edit(int id, [Bind("Id,NumeroOrden,CodigoProveedor,NombreProveedor,CodigoProducto,NombreProducto,PrecioUnitario,Cantidad,Estado")] OrdenCompra ordenCompra)
         {
             if (id != ordenCompra.Id)
@@ -128,6 +130,7 @@ namespace PNT1_Grupo6.Controllers
         }
 
         // GET: OrdenesCompra/Delete/5
+        [AuthorizeRole(Rol.Admin)]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -148,6 +151,7 @@ namespace PNT1_Grupo6.Controllers
         // POST: OrdenesCompra/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [AuthorizeRole(Rol.Admin)]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var ordenCompra = await _context.OrdenesCompra.FindAsync(id);

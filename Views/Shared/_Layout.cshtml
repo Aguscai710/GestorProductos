@@ -1,4 +1,8 @@
-﻿<!DOCTYPE html>
+﻿@{
+    var session = ViewContext.HttpContext.Session;
+    var usuario = session.GetObject<Usuario>("Usuario");
+}
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -18,48 +22,50 @@
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
                     <ul class="navbar-nav flex-grow-1">
+                        @if (usuario != null)
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Usuarios" asp-action="Index">Usuarios</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Proveedores" asp-action="Index">Proveedores</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Productos" asp-action="Index">Productos</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="OrdenesCompra" asp-action="Index">Órdenes de compra</a>
+                            </li>
+                        }
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Usuarios" asp-action="Index">Usuarios</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Proveedores" asp-action="Index">Proveedores</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Productos" asp-action="Index">Productos</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="OrdenesCompra" asp-action="Index">Órdenes de compra</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Sessions" asp-action="Index">Sessions</a>
-                        </li>
-                        <li class="nav-item">
-                            @if (ViewData["Usuario"] != null)
+                            @if (usuario != null)
                             {
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Sessions" asp-action="Index">
                                     <div class="d-flex align-items-center">
-                                        <div class="avatar-circle"></div> <!-- Aquí puedes colocar el avatar circular o una imagen -->
                                         <div class="ml-2">
-                                            <div class="font-weight-bold">@((PNT1_Grupo6.Models.Usuario)ViewData["Usuario"]).Nombre</div>
-                                            <div class="small text-muted">@((PNT1_Grupo6.Models.Usuario)ViewData["Usuario"]).RolUsuario</div>
+                                            <div class="font-weight-bold">@usuario.Nombre</div>
+                                            <div class="small text-muted">@usuario.RolUsuario</div>
+                                        </div>
+                                        <div class="avatar-image">
+                                            <!-- Agregar imagen del avatar circular aquí -->
+                                            <img src="~/css/user-icon.png" alt="Avatar" class="avatar-image" />
                                         </div>
                                     </div>
                                 </a>
-                                <form asp-controller="Sessions" asp-action="Logout" method="post">
-                                    <button type="submit" class="btn btn-link nav-link text-dark">Cerrar sesión</button>
-                                </form>
                             }
                             else
                             {
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Sessions" asp-action="Index">Iniciar sesión</a>
                             }
                         </li>
+                        @if (usuario != null)
+                        {
+                            <li class="nav-item">
+                                <form asp-controller="Sessions" asp-action="Logout" method="post">
+                                    <button type="submit" class="btn btn-link nav-link text-dark">Cerrar sesión</button>
+                                </form>
+                            </li>
+                        }
                     </ul>
                 </div>
             </div>
