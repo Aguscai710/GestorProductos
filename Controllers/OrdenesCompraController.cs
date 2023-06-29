@@ -46,6 +46,8 @@ namespace PNT1_Grupo6.Controllers
         // GET: OrdenesCompra/Create
         public IActionResult Create()
         {
+            ViewBag.Productos = GetListaProductos();
+            ViewBag.Proveedores = GetListaProveedores();
             return View();
         }
 
@@ -198,6 +200,15 @@ namespace PNT1_Grupo6.Controllers
                 isValid = false;
             }
             return isValid;
+        }
+        private List<Producto> GetListaProductos()
+        {
+            return _context.Productos.ToList();
+        }
+
+        private List<Proveedor> GetListaProveedores()
+        {
+            return _context.Proveedores.ToList();
         }
     }
 }
