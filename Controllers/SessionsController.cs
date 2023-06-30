@@ -114,7 +114,7 @@ namespace PNT1_Grupo6.Controllers
             }
             else
             {
-                TempData["CreateNewUserError"] = "No se pudo crear el usuario debido a duplicados.";
+                TempData["CreateNewUserError"] = "No se pudo crear el usuario debido a duplicados. Usuario y/o dni ya existentes.";
                 return RedirectToAction("CreateNewUser");
             }
 
