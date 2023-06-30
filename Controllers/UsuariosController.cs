@@ -104,11 +104,7 @@ namespace PNT1_Grupo6.Controllers
 
             if (ModelState.IsValid)
             {
-                if(DniExists(usuario.Dni))
-                {
-                    return RedirectToAction(nameof(Index));
-                }
-                else if(UserNameExists(usuario.UserName))
+                if(UserNameExists(usuario.UserName))
                 {
                     return RedirectToAction(nameof(Index));
                 }
@@ -184,7 +180,7 @@ namespace PNT1_Grupo6.Controllers
             bool exists = _context.Usuarios.Any(e => e.UserName == user);
             if (exists)
             {
-                TempData["UsuariosError"] = "Dni repetido.";
+                TempData["UsuariosError"] = "Usuario repetido.";
             }
             return exists;
         }
