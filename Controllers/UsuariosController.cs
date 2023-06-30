@@ -46,7 +46,6 @@ namespace PNT1_Grupo6.Controllers
         }
 
         // GET: Usuarios/Create
-        [AuthorizeRole(Rol.Admin)]
         public IActionResult Create()
         {
             return View();
@@ -57,7 +56,6 @@ namespace PNT1_Grupo6.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [AuthorizeRole(Rol.Admin)]
         public async Task<IActionResult> Create([Bind("Id,Nombre,Apellido,Dni,Password,RolUsuario")] Usuario usuario)
         {
             if (ModelState.IsValid && !DniExists(usuario.Dni))
