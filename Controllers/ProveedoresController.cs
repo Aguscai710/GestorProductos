@@ -23,6 +23,7 @@ namespace PNT1_Grupo6.Controllers
         // GET: Proveedores
         public async Task<IActionResult> Index()
         {
+            
             return View(await _context.Proveedores.ToListAsync());
         }
 

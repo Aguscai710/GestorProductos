@@ -12,10 +12,14 @@ namespace PNT1_Grupo6.Models
 	{
 		[Key]
 		[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-		public int Id { get; set; }
+		public int Id { get; set; } 
+
+		[Required(ErrorMessage = "Elija un usuario para el inicio de sesion")]
+		[Display(Name = "Usuario")]
+		public string UserName { get; set; }
 
 		[Required(ErrorMessage = "El nombre  requerido")]
-		[Display(Name = "Usuario")]
+		[Display(Name = "Nombre")]
 		public string Nombre { get; set; }
 
 		[Required(ErrorMessage = "El apellido es requerido")]

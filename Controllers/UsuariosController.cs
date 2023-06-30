@@ -56,18 +56,17 @@ namespace PNT1_Grupo6.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Nombre,Apellido,Dni,Password,RolUsuario")] Usuario usuario)
+        public async Task<IActionResult> Create([Bind("Id,UserName,Nombre,Apellido,Dni,Password,RolUsuario")] Usuario usuario)
         {
-            if (ModelState.IsValid && !DniExists(usuario.Dni))
+            if (ModelState.IsValid && (!DniExists(usuario.Dni) && !UserNameExists(usuario.UserName)))
             {
                 _context.Add(usuario);
                 await _context.SaveChangesAsync();
+
                 return RedirectToAction(nameof(Index));
             }
             else
             {
-                TempData["UsuariosError"] = "Dni repetido.";
-
                 return RedirectToAction(nameof(Index));
             }
             //return View(usuario);
@@ -96,7 +95,7 @@ namespace PNT1_Grupo6.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [AuthorizeRole(Rol.Admin)]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Nombre,Apellido,Dni,Password,RolUsuario")] Usuario usuario)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,UserName,Nombre,Apellido,Dni,Password,RolUsuario")] Usuario usuario)
         {
             if (id != usuario.Id)
             {
@@ -105,6 +104,15 @@ namespace PNT1_Grupo6.Controllers
 
             if (ModelState.IsValid)
             {
+                if(DniExists(usuario.Dni))
+                {
+                    return RedirectToAction(nameof(Index));
+                }
+                else if(UserNameExists(usuario.UserName))
+                {
+                    return RedirectToAction(nameof(Index));
+                }
+
                 try
                 {
                     _context.Update(usuario);
@@ -164,12 +172,21 @@ namespace PNT1_Grupo6.Controllers
 
         private bool DniExists(int dni)
         {
-            return _context.Usuarios.Any(e => e.Dni == dni);
+            bool exists = _context.Usuarios.Any(e => e.Dni == dni);
+            if (exists)
+            {
+                TempData["UsuariosError"] = "Dni repetido.";
+            }
+            return exists;
         }
-
-  
-
-
-
+        private bool UserNameExists(string user)
+        {
+            bool exists = _context.Usuarios.Any(e => e.UserName == user);
+            if (exists)
+            {
+                TempData["UsuariosError"] = "Dni repetido.";
+            }
+            return exists;
+        }
     }
 }
