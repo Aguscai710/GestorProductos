@@ -21,11 +21,38 @@ namespace PNT1_Grupo6.Controllers
         }
 
         // GET: OrdenesCompra
-        
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string orderBy)
         {
-            return View(await _context.OrdenesCompra.ToListAsync());
+            var ordenesCompra = await _context.OrdenesCompra.ToListAsync();
+
+            // Aplicar ordenamiento si se especifica
+            if (!string.IsNullOrEmpty(orderBy))
+            {
+                switch (orderBy)
+                {
+                    case "NumeroOrden":
+                        ordenesCompra = ordenesCompra.OrderBy(o => o.NumeroOrden).ToList();
+                        break;
+                    case "MayorPrecioTotal":
+                        ordenesCompra = ordenesCompra.OrderByDescending(o => o.PrecioUnitario * o.Cantidad).ToList();
+                        break;
+                    case "MenorPrecioTotal":
+                        ordenesCompra = ordenesCompra.OrderBy(o => o.PrecioUnitario * o.Cantidad).ToList();
+                        break;
+                    case "nombreProducto":
+                        ordenesCompra = ordenesCompra.OrderBy(o => o.NombreProducto).ToList();
+                        break;
+                    case "nombreProveedor":
+                        ordenesCompra = ordenesCompra.OrderBy(o => o.NombreProveedor).ToList();
+                        break;
+                }
+            }
+
+            return View(ordenesCompra);
+
         }
+
+
 
         // GET: OrdenesCompra/Details/5
         public async Task<IActionResult> Details(int? id)
@@ -212,5 +239,6 @@ namespace PNT1_Grupo6.Controllers
         {
             return _context.Proveedores.ToList();
         }
+
     }
 }
