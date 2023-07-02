@@ -11,6 +11,17 @@
         @TempData["ProductoError"]
     </div>}
 <p>
+    Ordenar por:
+    <select id="orderBySelect">
+        <option value="">Seleccionar...</option>
+        <option value="CodigoProducto">Código de Producto</option>
+        <option value="Nombre">Nombre</option>
+        <option value="MayorPrecioVenta">Mayor Precio</option>
+        <option value="MenorPrecioVenta">Menor Precio</option>
+    </select>
+</p>
+
+<p>
     <a asp-action="Create">Create New</a>
 </p>
 <table class="table">
@@ -68,3 +79,13 @@
         }
     </tbody>
 </table>
+
+@section Scripts {
+    <script>
+        document.getElementById('orderBySelect').addEventListener('change', function () {
+            var selectedValue = this.value;
+            var url = '@Url.Action("Index", new { orderBy = "placeholder" })';
+            window.location.href = url.replace("placeholder", selectedValue);
+        });
+    </script>
+}

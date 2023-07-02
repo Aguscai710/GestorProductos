@@ -24,7 +24,9 @@ namespace PNT1_Grupo6.Models
 		public int MaximoAlmacenable { get; set; }
 		[Required(ErrorMessage = "Añadir detalle para clarificar info del producto.")]
 		public string Descripcion { get; set; }
-        [Required(ErrorMessage = "Establezca un precio.")]
+
+		[DataType(DataType.Currency)]
+		[Required(ErrorMessage = "Establezca un precio.")]
 		public double PrecioVenta { get; set; }
 	}
 }

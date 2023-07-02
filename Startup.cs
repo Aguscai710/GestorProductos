@@ -13,7 +13,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using PNT1_Grupo6.Context;
 using Newtonsoft.Json;
-
+using Microsoft.AspNetCore.Localization;
 
 namespace PNT1_Grupo6
 {
@@ -55,6 +55,10 @@ namespace PNT1_Grupo6
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
 		public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
 		{
+			/*app.UseRequestLocalization(new RequestLocalizationOptions
+			{
+				DefaultRequestCulture = new RequestCulture("es-ES"),
+			});*/
 			if (env.IsDevelopment())
 			{
 				app.UseDeveloperExceptionPage();

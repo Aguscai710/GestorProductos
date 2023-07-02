@@ -20,9 +20,31 @@ namespace PNT1_Grupo6.Controllers
         }
 
         // GET: Productos
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string orderBy)
         {
-            return View(await _context.Productos.ToListAsync());
+            var productos = await _context.Productos.ToListAsync();
+
+            // Aplicar ordenamiento si se especifica
+            if (!string.IsNullOrEmpty(orderBy))
+            {
+                switch (orderBy)
+                {
+                    case "CodigoProducto":
+                        productos = productos.OrderBy(p => p.CodigoProducto).ToList();
+                        break;
+                    case "Nombre":
+                        productos = productos.OrderBy(p => p.Nombre).ToList();
+                        break;
+                    case "MayorPrecioVenta":
+                        productos = productos.OrderByDescending(o => o.PrecioVenta).ToList();
+                        break;
+                    case "MenorPrecioVenta":
+                        productos = productos.OrderBy(o => o.PrecioVenta).ToList();
+                        break;
+                }
+            }
+
+            return View(productos);
         }
 
         // GET: Productos/Details/5

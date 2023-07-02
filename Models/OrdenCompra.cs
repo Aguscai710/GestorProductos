@@ -32,14 +32,15 @@ namespace PNT1_Grupo6.Models
 		[Display(Name = "Producto")]
 		public string NombreProducto{ get; set; }
 
-
+		[DataType(DataType.Currency)]
 		[Display(Name = "Precio unitario")]
 		[Required(ErrorMessage = "Acordar y fijar el precio con el proveedor.")]
 		public double PrecioUnitario { get; set; }
 		public int Cantidad { get; set; }
 
+		[DataType(DataType.Currency)]
 		[Display(Name = "Precio total")]
-		public double PrecioTotal => PrecioUnitario * Cantidad;
+		public double PrecioTotal => (double) PrecioUnitario * Cantidad;
 
 		[EnumDataType(typeof(EstadoOrdenCompra))]
 		public EstadoOrdenCompra Estado { get; set; }
