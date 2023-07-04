@@ -1,20 +1,31 @@
 ﻿@model PNT1_Grupo6.Models.Usuario
 
-<h1>Sessions</h1>
 @if (TempData["LoginError"] != null)
-{
-    <div class="alert alert-danger">
+{<div class="alert alert-danger">
         @TempData["LoginError"]
     </div>}
-<form asp-controller="Sessions" asp-action="Login" method="post">
-    Usuario:
-    <input type="text" name="username" />
-    <br />
-    Contraseña:
-    <input type="password" name="password" />
-    <br />
-    <input type="submit" value="Login" />
-</form>
-<p>
-    <a asp-controller="Sessions" asp-action="CreateNewUser">Registrar nuevo usuario</a>
-</p>
+
+<div class="contenedorSessions">
+
+    <h1>Inicio de sesion</h1>
+
+
+    <form asp-controller="Sessions" asp-action="Login" method="post">
+        <div class="space">
+            <p class="texto">Ingrese su Usuario:</p>
+            <br />
+            <input type="text" name="username" />
+        </div>
+        <br />
+        <div class="space">
+            <p class="texto">Ingrese su Contraseña:</p>
+            <br />
+            <input type="password" name="password" />
+            <br />
+        </div>
+        <input class="green-button" type="submit" value="Login" />
+    </form>
+    <p class="red-button">
+        <a asp-controller="Sessions" asp-action="CreateNewUser">Registrar nuevo usuario</a>
+    </p>
+</div>
