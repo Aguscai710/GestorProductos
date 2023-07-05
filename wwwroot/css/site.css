@@ -135,4 +135,25 @@ body {
     background-color:blue;
 }
 
+/* TABLAS */
+tr:nth-child(odd) {
+    background-color: #cecece
+}
+
+tr:nth-child(even) {
+    background-color: #e2e2e2
+}
+
+thead tr:nth-child(odd) {
+    background-color: #1861ac
+}
+
+thead {
+    color: white;
+}
+
+tbody {
+    font-weight: 500;
+}
+
 
