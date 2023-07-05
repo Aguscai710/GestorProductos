@@ -77,3 +77,83 @@ body {
     height: 32px; /* Ajusta la altura deseada */
     border-radius: 50%; /* Hace que la imagen sea circular */
 }
+
+.color-base{
+    background-color:red;
+    
+}
+
+.colorPrincipal{
+    color:red;
+}
+.centrar-dash{
+    color: green;
+    
+}
+.contenedorSessions{
+    margin-left: 400px;
+    margin-top:80px;
+    position:relative;
+}
+.space{
+    margin:20px;
+}
+.red-button {
+    display: inline;
+    padding: 10px 20px;
+    background-color: red;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    border: 3px solid black;
+    position:absolute;
+    top:360px;
+    left:100px;
+
+
+}
+.green-button {
+    background-color: green;
+    display: block;
+    padding: 10px 20px;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    margin-top: 60px;
+    border: 3px solid black;
+    position: absolute;
+    top:300px;
+    left:0px;
+}
+.texto{
+    font-size:25px;
+}
+.contenedorUsuarionCreate{
+    margin-left:300px;
+}
+.hola{
+    background-color:blue;
+}
+
+/* TABLAS */
+tr:nth-child(odd) {
+    background-color: #cecece
+}
+
+tr:nth-child(even) {
+    background-color: #e2e2e2
+}
+
+thead tr:nth-child(odd) {
+    background-color: #1861ac
+}
+
+thead {
+    color: white;
+}
+
+tbody {
+    font-weight: 500;
+}
+
+
