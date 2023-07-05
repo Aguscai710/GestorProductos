@@ -4,11 +4,13 @@
     ViewData["Title"] = "Create";
 }
 <body class="colorBase">
-    <h1 class="colorPrincipal">Create</h1>
+    <div class="fondo">
+        <h1>Crear</h1>
 
-    <h4 class="color-base">Usuario</h4>
+        <h4>Usuario</h4>
+    </div>
     <hr />
-    <div class="contenedorUsuarionCreate">
+    <div class="cont">
         <div class="row">
             <div class="col-md-4">
                 <form asp-action="Create">
@@ -46,7 +48,7 @@
                         <span asp-validation-for="RolUsuario" class="text-danger"></span>
                     </div>
                     <div class="form-group">
-                        <input type="submit" value="Create" class="btn btn-primary" />
+                        <input type="submit" value="Crear" class="btn btn-primary" />
                     </div>
                 </form>
             </div>
@@ -54,11 +56,42 @@
     </div>
 
     <div>
-        <a asp-action="Index">Back to List</a>
+        <a class="rojo" asp-action="Index">Volver a la lista</a>
     </div>
 
     @section Scripts {
         @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
     }
 </body>
+
+<style>
+    .fondo {
+        background-color: #1861ac;
+        border-radius: 10px;
+        color: white;
+        text-align: center;
+    }
+    .cont{
+        margin-left:460px;
+        
+    }
+    .rojo {
+        padding: 8px 16px;
+        background-color: red;
+        color: white;
+        text-decoration: none;
+        border-radius: 5px;
+    }
+    .rojo:hover{
+        background-color:darkred;
+        color:white;
+        text-decoration:none;
+    }
+    .btn{
+       background-color:green;
+    }
+    .btn:hover{
+        background-color:darkgreen;
+    }
+</style>
 

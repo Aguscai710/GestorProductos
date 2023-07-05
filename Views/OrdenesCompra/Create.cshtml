@@ -1,11 +1,13 @@
-﻿@model PNT1_Grupo6.Models.OrdenCompra
+@model PNT1_Grupo6.Models.OrdenCompra
 
 @{
     ViewData["Title"] = "Create";
 }
 <h1>Create</h1>
 
-<h4>OrdenCompra</h4>
+
+    <h4>OrdenCompra</h4>
+</div>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -62,10 +64,44 @@
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a class="rojo" asp-action="Index">Volver a la lista</a>
 </div>
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }
 
+<style>
+    .fondo {
+        background-color: #1861ac;
+        border-radius: 10px;
+        color: white;
+        text-align: center;
+    }
+
+    .cont {
+        margin-left: 460px;
+    }
+
+    .rojo {
+        padding: 8px 16px;
+        background-color: red;
+        color: white;
+        text-decoration: none;
+        border-radius: 5px;
+    }
+
+        .rojo:hover {
+            background-color: darkred;
+            color: white;
+            text-decoration: none;
+        }
+
+    .btn {
+        background-color: green;
+    }
+
+        .btn:hover {
+            background-color: darkgreen;
+        }
+</style>
