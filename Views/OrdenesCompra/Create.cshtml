@@ -3,105 +3,109 @@
 @{
     ViewData["Title"] = "Create";
 }
-<h1>Create</h1>
+
+<div class="fondo">
+    <h1>Create</h1>
 
 
     <h4>OrdenCompra</h4>
 </div>
 <hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="ProveedorId" class="control-label" id="CodigoProveedorDropdown"></label>
-                <select asp-for="ProveedorId" asp-action="GetListaProveedores" class="form-control" id="CodigoProveedorSelect">
-                    <option value="">Seleccione un proveedor</option>
-                    @{
-                        foreach (var proveedor in ViewBag.Proveedores)
-                        {
-                            <option value="@proveedor.Id">@proveedor.Nombre</option>
+<div class="cont">
+    <div class="row">
+        <div class="col-md-4">
+            <form asp-action="Create">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="ProveedorId" class="control-label" id="CodigoProveedorDropdown"></label>
+                    <select asp-for="ProveedorId" asp-action="GetListaProveedores" class="form-control" id="CodigoProveedorSelect">
+                        <option value="">Seleccione un proveedor</option>
+                        @{
+                            foreach (var proveedor in ViewBag.Proveedores)
+                            {
+                                <option value="@proveedor.Id">@proveedor.Nombre</option>
+                            }
                         }
-                    }
-                </select>
-                <span asp-validation-for="ProveedorId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="ProductoId" class="control-label" id="CodigoProductoDropdown"></label>
-                <select asp-for="ProductoId" asp-action="GetListaProductos" class="form-control" id="CodigoProductoSelect">
-                    <option value="">Seleccione un producto</option>
-                    @{
-                        foreach (var producto in ViewBag.Productos)
-                        {
-                            <option value="@producto.Id">@producto.Nombre</option>
+                    </select>
+                    <span asp-validation-for="ProveedorId" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="ProductoId" class="control-label" id="CodigoProductoDropdown"></label>
+                    <select asp-for="ProductoId" asp-action="GetListaProductos" class="form-control" id="CodigoProductoSelect">
+                        <option value="">Seleccione un producto</option>
+                        @{
+                            foreach (var producto in ViewBag.Productos)
+                            {
+                                <option value="@producto.Id">@producto.Nombre</option>
+                            }
                         }
-                    }
-                </select>
-                <span asp-validation-for="ProductoId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="PrecioUnitario" class="control-label"></label>
-                <input asp-for="PrecioUnitario" class="form-control" />
-                <span asp-validation-for="PrecioUnitario" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Cantidad" class="control-label"></label>
-                <input asp-for="Cantidad" class="form-control" />
-                <span asp-validation-for="Cantidad" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Estado" class="control-label"></label>
-                <select asp-for="Estado" class="form-control">
-                    <option selected="selected" value=0>Pendiente</option>
-                </select>
-                <span asp-validation-for="Estado" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
-        </form>
+                    </select>
+                    <span asp-validation-for="ProductoId" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="PrecioUnitario" class="control-label"></label>
+                    <input asp-for="PrecioUnitario" class="form-control" />
+                    <span asp-validation-for="PrecioUnitario" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Cantidad" class="control-label"></label>
+                    <input asp-for="Cantidad" class="form-control" />
+                    <span asp-validation-for="Cantidad" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Estado" class="control-label"></label>
+                    <select asp-for="Estado" class="form-control">
+                        <option selected="selected" value=0>Pendiente</option>
+                    </select>
+                    <span asp-validation-for="Estado" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Create" class="btn btn-primary" />
+                </div>
+            </form>
+        </div>
     </div>
 </div>
 
-<div>
-    <a class="rojo" asp-action="Index">Volver a la lista</a>
-</div>
+    <div>
+        <a class="rojo" asp-action="Index">Volver a la lista</a>
+    </div>
 
-@section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-}
-
-<style>
-    .fondo {
-        background-color: #1861ac;
-        border-radius: 10px;
-        color: white;
-        text-align: center;
+    @section Scripts {
+        @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
     }
 
-    .cont {
-        margin-left: 460px;
-    }
+    <style>
+        .fondo {
+            background-color: #1861ac;
+            border-radius: 10px;
+            color: white;
+            text-align: center;
+        }
 
-    .rojo {
-        padding: 8px 16px;
-        background-color: red;
-        color: white;
-        text-decoration: none;
-        border-radius: 5px;
-    }
+        .cont {
+            margin-left: 460px;
+        }
 
-        .rojo:hover {
-            background-color: darkred;
+        .rojo {
+            padding: 8px 16px;
+            background-color: red;
             color: white;
             text-decoration: none;
+            border-radius: 5px;
         }
 
-    .btn {
-        background-color: green;
-    }
+            .rojo:hover {
+                background-color: darkred;
+                color: white;
+                text-decoration: none;
+            }
 
-        .btn:hover {
-            background-color: darkgreen;
+        .btn {
+            background-color: green;
         }
-</style>
+
+            .btn:hover {
+                background-color: darkgreen;
+            }
+    </style>

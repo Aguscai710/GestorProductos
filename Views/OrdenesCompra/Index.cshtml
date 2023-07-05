@@ -11,6 +11,9 @@
         @TempData["OrdenCompraError"]
     </div>
 }
+<p>
+    <a class="btn-create" asp-action="Create">Crear nuevo</a>
+</p>
 
 <p>
     Ordenar por:
@@ -22,10 +25,6 @@
         <option value="Producto">Nombre de Producto</option>
         <option value="Proveedor">Nombre de Proveedor</option>
     </select>
-</p>
-
-<p>
-    <a asp-action="Create">Create New</a>
 </p>
 <table class="table">
     <thead>
@@ -92,9 +91,9 @@
                 @Html.DisplayFor(modelItem => item.Estado)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                <a class="verde" asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                <a class="amarillo" asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                <a class="rojo" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
             </td>
         </tr>
         }

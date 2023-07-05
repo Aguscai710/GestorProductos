@@ -11,7 +11,7 @@
         @TempData["ProductoError"]
     </div>}
 <p>
-    <a asp-action="Create">Create New</a>
+    <a class="btn-create" asp-action="Create">Crear nuevo</a>
 </p>
 <p>
     Ordenar por:
@@ -70,9 +70,9 @@
                 @Html.DisplayFor(modelItem => item.PrecioVenta)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                <a class="verde" asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                <a class="amarillo" asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                <a class="rojo" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
             </td>
         </tr>
         }
