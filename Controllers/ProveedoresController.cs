@@ -23,7 +23,6 @@ namespace PNT1_Grupo6.Controllers
         // GET: Proveedores
         public async Task<IActionResult> Index()
         {
-            
             return View(await _context.Proveedores.ToListAsync());
         }
 
@@ -46,7 +45,6 @@ namespace PNT1_Grupo6.Controllers
         }
 
         // GET: Proveedores/Create
-        [AuthorizeRole(Rol.Admin)]
         public IActionResult Create()
         {
             return View();
@@ -57,16 +55,15 @@ namespace PNT1_Grupo6.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [AuthorizeRole(Rol.Admin)]
-        public async Task<IActionResult> Create([Bind("Id,CodigoProveedor,Nombre,Email,Telefono,Rubro")] Proveedor proveedor)
+        public async Task<IActionResult> Create([Bind("Id,Nombre,Email,Telefono,Rubro")] Proveedor proveedor)
         {
-            if (ModelState.IsValid && ValidateData(proveedor.CodigoProveedor, proveedor.Email))
+            if (ModelState.IsValid && ValidateData(proveedor.Id, proveedor.Email))
             {
                 _context.Add(proveedor);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            else 
+            else
             {
                 return RedirectToAction(nameof(Index));
             }
@@ -74,7 +71,6 @@ namespace PNT1_Grupo6.Controllers
         }
 
         // GET: Proveedores/Edit/5
-        [AuthorizeRole(Rol.Admin)]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -95,8 +91,7 @@ namespace PNT1_Grupo6.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [AuthorizeRole(Rol.Admin)]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,CodigoProveedor,Nombre,Email,Telefono,Rubro")] Proveedor proveedor)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Nombre,Email,Telefono,Rubro")] Proveedor proveedor)
         {
             if (id != proveedor.Id)
             {
@@ -132,7 +127,6 @@ namespace PNT1_Grupo6.Controllers
         }
 
         // GET: Proveedores/Delete/5
-        [AuthorizeRole(Rol.Admin)]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -151,7 +145,6 @@ namespace PNT1_Grupo6.Controllers
         }
 
         // POST: Proveedores/Delete/5
-        [AuthorizeRole(Rol.Admin)]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
@@ -167,7 +160,7 @@ namespace PNT1_Grupo6.Controllers
             return _context.Proveedores.Any(e => e.Id == id);
         }
 
-        private bool ValidateData(string code, string email)
+        private bool ValidateData(int code, string email)
         {
             bool state = false;
             if (ProveedorExists(code))
@@ -178,19 +171,14 @@ namespace PNT1_Grupo6.Controllers
             {
                 TempData["ProveedorError"] = "El email provisto no cumple con el formato esperado.";
             }
-            else 
+            else
             {
                 state = true;
             }
             return state;
         }
 
-        private bool ProveedorExists(string code)
-        {
-            return _context.Proveedores.Any(e => e.CodigoProveedor == code);
-        }
-
-        private bool ValidEmail(string email) 
+        private bool ValidEmail(string email)
         {
             // Expresión regular para validar direcciones de correo electrónico
             string pattern = @"^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$";

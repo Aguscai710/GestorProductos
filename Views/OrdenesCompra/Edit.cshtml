@@ -19,29 +19,14 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="Id" />
             <div class="form-group">
-                <label asp-for="NumeroOrden" class="control-label"></label>
-                <input asp-for="NumeroOrden" class="form-control" readonly/>
-                <span asp-validation-for="NumeroOrden" class="text-danger"></span>
+                <label asp-for="ProveedorId" class="control-label"></label>
+                <input asp-for="ProveedorId" class="form-control" readonly />
+                <span asp-validation-for="ProveedorId" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="CodigoProveedor" class="control-label"></label>
-                <input asp-for="CodigoProveedor" class="form-control" readonly/>
-                <span asp-validation-for="CodigoProveedor" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="NombreProveedor" class="control-label"></label>
-                <input asp-for="NombreProveedor" class="form-control" readonly/>
-                <span asp-validation-for="NombreProveedor" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="CodigoProducto" class="control-label"></label>
-                <input asp-for="CodigoProducto" class="form-control" readonly/>
-                <span asp-validation-for="CodigoProducto" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="NombreProducto" class="control-label"></label>
-                <input asp-for="NombreProducto" class="form-control" readonly/>
-                <span asp-validation-for="NombreProducto" class="text-danger"></span>
+                <label asp-for="ProductoId" class="control-label"></label>
+                <input asp-for="ProductoId" class="form-control" readonly />
+                <span asp-validation-for="ProductoId" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="PrecioUnitario" class="control-label"></label>
@@ -55,8 +40,7 @@
             </div>
             <div class="form-group">
                 <label asp-for="Estado" class="control-label"></label>
-                <select asp-for="Estado" class="form-control" asp-items="Html.GetEnumSelectList<EstadoOrdenCompra>()">
-                </select>
+                <select asp-for="Estado" class="form-control" asp-items="Html.GetEnumSelectList<EstadoOrdenCompra>()"></select>
                 <span asp-validation-for="Estado" class="text-danger"></span>
             </div>
             <div class="form-group">

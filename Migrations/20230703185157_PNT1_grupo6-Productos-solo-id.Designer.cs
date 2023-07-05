@@ -2,15 +2,17 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PNT1_Grupo6.Context;
 
 namespace PNT1_Grupo6.Migrations
 {
     [DbContext(typeof(GestorDatabaseContext))]
-    partial class GestorDatabaseContextModelSnapshot : ModelSnapshot
+    [Migration("20230703185157_PNT1_grupo6-Productos-solo-id")]
+    partial class PNT1_grupo6Productossoloid
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -28,17 +30,29 @@ namespace PNT1_Grupo6.Migrations
                     b.Property<int>("Cantidad")
                         .HasColumnType("int");
 
+                    b.Property<string>("CodigoProducto")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CodigoProveedor")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("Estado")
                         .HasColumnType("int");
 
-                    b.Property<decimal>("PrecioUnitario")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<string>("NombreProducto")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("ProductoId")
-                        .HasColumnType("int");
+                    b.Property<string>("NombreProveedor")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("ProveedorId")
-                        .HasColumnType("int");
+                    b.Property<string>("NumeroOrden")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<double>("PrecioUnitario")
+                        .HasColumnType("float");
 
                     b.HasKey("Id");
 
@@ -63,8 +77,8 @@ namespace PNT1_Grupo6.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<decimal>("PrecioVenta")
-                        .HasColumnType("decimal(10, 2)");
+                    b.Property<double>("PrecioVenta")
+                        .HasColumnType("float");
 
                     b.Property<int>("Stock")
                         .HasColumnType("int");
@@ -80,6 +94,10 @@ namespace PNT1_Grupo6.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("CodigoProveedor")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Email")
                         .IsRequired()

@@ -13,34 +13,28 @@ namespace PNT1_Grupo6.Models
 		[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
 		public int Id { get; set; }
 
-		[Display(Name = "Número de orden")]
-		[Required(ErrorMessage = "El número de orden es requerido.")]
-		public string NumeroOrden { get; set; }
-
 		[Display(Name = "Código del proveedor")]
 		[Required(ErrorMessage = "Indique el proveedor para la compra.")]
-		public string CodigoProveedor { get; set; }
-
-		[Display(Name = "Proveedor")]
-		public string NombreProveedor { get; set; }
-
+		public int ProveedorId { get; set; }
 
 		[Display(Name = "Código del producto")]
 		[Required(ErrorMessage = "Indique el prodcuto a comprar.")]
-		public string CodigoProducto { get; set; }
-
-		[Display(Name = "Producto")]
-		public string NombreProducto{ get; set; }
+		public int ProductoId { get; set; }
 
 		[DataType(DataType.Currency)]
+		[DisplayFormat(DataFormatString = "{0:C}")]
+		[Column(TypeName = "decimal(10, 2)")]
 		[Display(Name = "Precio unitario")]
 		[Required(ErrorMessage = "Acordar y fijar el precio con el proveedor.")]
-		public double PrecioUnitario { get; set; }
+		public decimal PrecioUnitario { get; set; }
+
 		public int Cantidad { get; set; }
 
 		[DataType(DataType.Currency)]
+		[DisplayFormat(DataFormatString = "{0:C}")]
+		[Column(TypeName = "decimal(10, 2)")]
 		[Display(Name = "Precio total")]
-		public double PrecioTotal => (double) PrecioUnitario * Cantidad;
+		public decimal PrecioTotal => (decimal) PrecioUnitario * Cantidad;
 
 		[EnumDataType(typeof(EstadoOrdenCompra))]
 		public EstadoOrdenCompra Estado { get; set; }

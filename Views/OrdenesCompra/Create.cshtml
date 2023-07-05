@@ -3,11 +3,6 @@
 @{
     ViewData["Title"] = "Create";
 }
-<head>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js">
-                        </script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-ajax-unobtrusive/3.2.6/jquery.unobtrusive-ajax.min.js"></script>
-</head>
 <h1>Create</h1>
 
 <h4>OrdenCompra</h4>
@@ -17,85 +12,31 @@
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="NumeroOrden" class="control-label"></label>
-                <input asp-for="NumeroOrden" class="form-control" />
-                <span asp-validation-for="NumeroOrden" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="CodigoProveedor" class="control-label" id="CodigoProveedorDropdown"></label>
-                <select asp-for="CodigoProveedor" asp-action="GetListaProveedores" class="form-control" id="CodigoProveedorSelect">
+                <label asp-for="ProveedorId" class="control-label" id="CodigoProveedorDropdown"></label>
+                <select asp-for="ProveedorId" asp-action="GetListaProveedores" class="form-control" id="CodigoProveedorSelect">
                     <option value="">Seleccione un proveedor</option>
                     @{
                         foreach (var proveedor in ViewBag.Proveedores)
                         {
-                            <option value="@proveedor.CodigoProveedor" data-nombre="@proveedor.Nombre">@proveedor.CodigoProveedor</option>
+                            <option value="@proveedor.Id">@proveedor.Nombre</option>
                         }
                     }
                 </select>
-                <span asp-validation-for="CodigoProveedor" class="text-danger"></span>
+                <span asp-validation-for="ProveedorId" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <div class="form-group">
-                    <label asp-for="NombreProveedor" class="control-label"></label>
-                    @{
-                        var nombreProveedor = ViewData["NombreProveedor"] as string;
-                        if (!string.IsNullOrEmpty(nombreProveedor))
-                        {
-                            <input asp-for="NombreProveedor" class="form-control" value="@nombreProveedor" id="NombreProveedorInput" readonly />
-                        }
-                        else
-                        {
-                            <input asp-for="NombreProveedor" class="form-control" id="NombreProveedorInput" readonly />
-                        }
-                    }
-                    <span asp-validation-for="NombreProveedor" class="text-danger"></span>
-                </div>
-
-                <script>
-                    document.getElementById('CodigoProveedorSelect').addEventListener('change', function () {
-                        var selectElement = this;
-                        var nombreProveedor = selectElement.options[selectElement.selectedIndex].getAttribute('data-nombre');
-                        document.getElementById('NombreProveedorInput').value = nombreProveedor;
-                    });
-                </script>
-            </div>
-            <div class="form-group">
-                <label asp-for="CodigoProducto" class="control-label" id="CodigoProductoDropdown"></label>
-                <select asp-for="CodigoProducto" asp-action="GetListaProductos" class="form-control" id="CodigoProductoSelect">
+                <label asp-for="ProductoId" class="control-label" id="CodigoProductoDropdown"></label>
+                <select asp-for="ProductoId" asp-action="GetListaProductos" class="form-control" id="CodigoProductoSelect">
                     <option value="">Seleccione un producto</option>
                     @{
                         foreach (var producto in ViewBag.Productos)
                         {
-                            <option value="@producto.CodigoProducto" data-nombre="@producto.Nombre">@producto.CodigoProducto</option>
+                            <option value="@producto.Id">@producto.Nombre</option>
                         }
                     }
                 </select>
-                <span asp-validation-for="CodigoProducto" class="text-danger"></span>
+                <span asp-validation-for="ProductoId" class="text-danger"></span>
             </div>
-
-            <div class="form-group">
-                <label asp-for="NombreProducto" class="control-label"></label>
-                @{
-                    var nombreProducto = ViewData["NombreProducto"] as string;
-                    if (!string.IsNullOrEmpty(nombreProducto))
-                    {
-                        <input asp-for="NombreProducto" class="form-control" value="@nombreProducto" id="NombreProductoInput" readonly/>
-                    }
-                    else
-                    {
-                        <input asp-for="NombreProducto" class="form-control" id="NombreProductoInput" readonly/>
-                    }
-                }
-                <span asp-validation-for="NombreProducto" class="text-danger"></span>
-            </div>
-
-            <script>
-                document.getElementById('CodigoProductoSelect').addEventListener('change', function () {
-                    var selectElement = this;
-                    var nombreProducto = selectElement.options[selectElement.selectedIndex].getAttribute('data-nombre');
-                    document.getElementById('NombreProductoInput').value = nombreProducto;
-                });
-            </script>
             <div class="form-group">
                 <label asp-for="PrecioUnitario" class="control-label"></label>
                 <input asp-for="PrecioUnitario" class="form-control" />

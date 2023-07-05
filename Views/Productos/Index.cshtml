@@ -11,24 +11,23 @@
         @TempData["ProductoError"]
     </div>}
 <p>
+    <a asp-action="Create">Create New</a>
+</p>
+<p>
     Ordenar por:
     <select id="orderBySelect">
         <option value="">Seleccionar...</option>
-        <option value="CodigoProducto">Código de Producto</option>
-        <option value="Nombre">Nombre</option>
-        <option value="MayorPrecioVenta">Mayor Precio</option>
-        <option value="MenorPrecioVenta">Menor Precio</option>
+        <option value="Id">Codigo de Producto</option>
+        <option value="MayorPrecio">Mayor Precio</option>
+        <option value="MenorPrecio">Menor Precio</option>
+        <option value="Nombre">Nombre de Producto</option>
     </select>
-</p>
-
-<p>
-    <a asp-action="Create">Create New</a>
 </p>
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.CodigoProducto)
+                @Html.DisplayNameFor(model => model.Id)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Nombre)
@@ -51,35 +50,34 @@
     <tbody>
         @foreach (var item in Model)
         {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.CodigoProducto)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Nombre)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Stock)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.MaximoAlmacenable)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Descripcion)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.PrecioVenta)
-                </td>
-                <td>
-                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-                </td>
-            </tr>
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Nombre)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Stock)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MaximoAlmacenable)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Descripcion)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PrecioVenta)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
         }
     </tbody>
 </table>
-
 @section Scripts {
     <script>
         document.getElementById('orderBySelect').addEventListener('change', function () {
