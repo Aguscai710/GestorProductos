@@ -29,16 +29,16 @@ namespace PNT1_Grupo6.Controllers
             {
                 switch (orderBy)
                 {
-                    case "CodigoProducto":
-                        productos = productos.OrderBy(p => p.CodigoProducto).ToList();
+                    case "Id":
+                        productos = productos.OrderBy(p => p.Id).ToList();
                         break;
                     case "Nombre":
                         productos = productos.OrderBy(p => p.Nombre).ToList();
                         break;
-                    case "MayorPrecioVenta":
+                    case "MayorPrecio":
                         productos = productos.OrderByDescending(o => o.PrecioVenta).ToList();
                         break;
-                    case "MenorPrecioVenta":
+                    case "MenorPrecio":
                         productos = productos.OrderBy(o => o.PrecioVenta).ToList();
                         break;
                 }
@@ -66,7 +66,6 @@ namespace PNT1_Grupo6.Controllers
         }
 
         // GET: Productos/Create
-        [AuthorizeRole(Rol.Admin)]
         public IActionResult Create()
         {
             return View();
@@ -77,8 +76,7 @@ namespace PNT1_Grupo6.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [AuthorizeRole(Rol.Admin)]
-        public async Task<IActionResult> Create([Bind("Id,CodigoProducto,Nombre,Stock,MaximoAlmacenable,Descripcion,PrecioVenta")] Producto producto)
+        public async Task<IActionResult> Create([Bind("Id,Nombre,Stock,MaximoAlmacenable,Descripcion,PrecioVenta")] Producto producto)
         {
             if (ModelState.IsValid && ValidateData(producto))
             {
@@ -114,7 +112,7 @@ namespace PNT1_Grupo6.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,CodigoProducto,Nombre,Stock,MaximoAlmacenable,Descripcion,PrecioVenta")] Producto producto)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Nombre,Stock,MaximoAlmacenable,Descripcion,PrecioVenta")] Producto producto)
         {
             if (id != producto.Id)
             {
@@ -149,7 +147,6 @@ namespace PNT1_Grupo6.Controllers
         }
 
         // GET: Productos/Delete/5
-        [AuthorizeRole(Rol.Admin)]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -170,7 +167,6 @@ namespace PNT1_Grupo6.Controllers
         // POST: Productos/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        [AuthorizeRole(Rol.Admin)]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var producto = await _context.Productos.FindAsync(id);
@@ -182,11 +178,6 @@ namespace PNT1_Grupo6.Controllers
         private bool ProductoExists(int id)
         {
             return _context.Productos.Any(e => e.Id == id);
-        }
-
-        private bool ProductoExistsByCode(string code)
-        {
-            return _context.Productos.Any(e => e.CodigoProducto == code);
         }
 
         private bool ValidateStockAndPricing(Producto producto)
@@ -207,18 +198,17 @@ namespace PNT1_Grupo6.Controllers
         private bool ValidateData(Producto producto)
         {
             bool isValid = true;
-            if (ProductoExistsByCode(producto.CodigoProducto))
+            if (ProductoExists(producto.Id))
             {
-                TempData["ProductoError"] = "El producto: " + producto.CodigoProducto + " ya se encuentra registrado.";
+                TempData["ProductoError"] = "El producto: " + producto.Id + " ya se encuentra registrado.";
                 isValid = false;
             }
-            else if (!ValidateStockAndPricing(producto)) 
+            else if (!ValidateStockAndPricing(producto))
             {
                 isValid = false;
             }
-            
+
             return isValid;
         }
-
-    } 
+    }
 }

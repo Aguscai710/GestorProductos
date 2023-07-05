@@ -11,11 +11,8 @@ namespace PNT1_Grupo6.Models
 	{
 		[Key]
 		[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-		public int Id { get; set; }
 		[Display(Name = "Código Proveedor")]
-
-		[Required(ErrorMessage = "El código de proveedor es requerido.")]
-		public string CodigoProveedor { get; set; }
+		public int Id { get; set; }
 
 		[Required(ErrorMessage = "El proveedor es requerido.")]
 		[Display(Name = "Proveedor")]

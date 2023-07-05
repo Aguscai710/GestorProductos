@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using PNT1_Grupo6.Context;
 using PNT1_Grupo6.Models;
+using PNT1_Grupo6.ViewModels;
 
 namespace PNT1_Grupo6.Controllers
 {
@@ -25,32 +25,45 @@ namespace PNT1_Grupo6.Controllers
         {
             var ordenesCompra = await _context.OrdenesCompra.ToListAsync();
 
+            var ordenesCompraViewModel = ordenesCompra.Select(o => new OrdenCompraViewModel
+            {
+                Id = o.Id,
+                ProveedorId = o.ProveedorId,
+                ProductoId = o.ProductoId,
+                PrecioUnitario = o.PrecioUnitario,
+                Cantidad = o.Cantidad,
+                PrecioTotal = o.PrecioTotal,
+                Estado = o.Estado,
+                NombreProveedor = _context.Proveedores.FirstOrDefault(p => p.Id == o.ProveedorId)?.Nombre,
+                NombreProducto = _context.Productos.FirstOrDefault(p => p.Id == o.ProductoId)?.Nombre
+            }).ToList();
+
             // Aplicar ordenamiento si se especifica
             if (!string.IsNullOrEmpty(orderBy))
             {
                 switch (orderBy)
                 {
                     case "NumeroOrden":
-                        ordenesCompra = ordenesCompra.OrderBy(o => o.NumeroOrden).ToList();
+                        ordenesCompraViewModel = ordenesCompraViewModel.OrderBy(o => o.Id).ToList();
                         break;
                     case "MayorPrecioTotal":
-                        ordenesCompra = ordenesCompra.OrderByDescending(o => o.PrecioUnitario * o.Cantidad).ToList();
+                        ordenesCompraViewModel = ordenesCompraViewModel.OrderByDescending(o => o.PrecioUnitario * o.Cantidad).ToList();
                         break;
                     case "MenorPrecioTotal":
-                        ordenesCompra = ordenesCompra.OrderBy(o => o.PrecioUnitario * o.Cantidad).ToList();
+                        ordenesCompraViewModel = ordenesCompraViewModel.OrderBy(o => o.PrecioUnitario * o.Cantidad).ToList();
                         break;
-                    case "nombreProducto":
-                        ordenesCompra = ordenesCompra.OrderBy(o => o.NombreProducto).ToList();
+                    case "Producto":
+                        ordenesCompraViewModel = ordenesCompraViewModel.OrderBy(o => o.NombreProducto).ToList();
                         break;
-                    case "nombreProveedor":
-                        ordenesCompra = ordenesCompra.OrderBy(o => o.NombreProveedor).ToList();
+                    case "Proveedor":
+                        ordenesCompraViewModel = ordenesCompraViewModel.OrderBy(o => o.NombreProveedor).ToList();
                         break;
                 }
             }
 
-            return View(ordenesCompra);
-
+            return View(ordenesCompraViewModel);
         }
+
 
 
 
@@ -85,7 +98,7 @@ namespace PNT1_Grupo6.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,NumeroOrden,CodigoProveedor,NombreProveedor,CodigoProducto,NombreProducto,PrecioUnitario,Cantidad,Estado")] OrdenCompra ordenCompra)
+        public async Task<IActionResult> Create([Bind("Id,ProveedorId,ProductoId,PrecioUnitario,Cantidad,Estado")] OrdenCompra ordenCompra)
         {
             if (ModelState.IsValid && ValidateData(ordenCompra))
             {
@@ -97,7 +110,6 @@ namespace PNT1_Grupo6.Controllers
         }
 
         // GET: OrdenesCompra/Edit/5
-        [AuthorizeRole(Rol.Admin)]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -118,8 +130,7 @@ namespace PNT1_Grupo6.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [AuthorizeRole(Rol.Admin)]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,NumeroOrden,CodigoProveedor,NombreProveedor,CodigoProducto,NombreProducto,PrecioUnitario,Cantidad,Estado")] OrdenCompra ordenCompra)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,ProveedorId,ProductoId,PrecioUnitario,Cantidad,Estado")] OrdenCompra ordenCompra)
         {
             if (id != ordenCompra.Id)
             {
@@ -161,7 +172,6 @@ namespace PNT1_Grupo6.Controllers
         }
 
         // GET: OrdenesCompra/Delete/5
-        [AuthorizeRole(Rol.Admin)]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -182,7 +192,6 @@ namespace PNT1_Grupo6.Controllers
         // POST: OrdenesCompra/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        [AuthorizeRole(Rol.Admin)]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var ordenCompra = await _context.OrdenesCompra.FindAsync(id);
@@ -195,13 +204,7 @@ namespace PNT1_Grupo6.Controllers
         {
             return _context.OrdenesCompra.Any(e => e.Id == id);
         }
-
-        private bool OrdenCompraExistsByOrder(string order)
-        {
-            return _context.OrdenesCompra.Any(e => e.NumeroOrden == order);
-        }
-
-        private bool ValidatePrice(double price)
+        private bool ValidatePrice(decimal price)
         {
             return (price > 0);
         }
@@ -213,9 +216,9 @@ namespace PNT1_Grupo6.Controllers
         private bool ValidateData(OrdenCompra order)
         {
             bool isValid = true;
-            if (OrdenCompraExistsByOrder(order.NumeroOrden))
+            if (OrdenCompraExists(order.Id))
             {
-                TempData["OrdenCompraError"] = "La orden con número: " + order.NumeroOrden + " ya se encuentra registrada.";
+                TempData["OrdenCompraError"] = "La orden con número: " + order.Id + " ya se encuentra registrada.";
                 isValid = false;
             }
             else if (!ValidatePrice(order.PrecioUnitario))
@@ -241,4 +244,5 @@ namespace PNT1_Grupo6.Controllers
         }
 
     }
+
 }

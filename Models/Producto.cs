@@ -11,10 +11,8 @@ namespace PNT1_Grupo6.Models
 	{
 		[Key]
 		[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-		public int Id { get; set; }
 		[Display(Name = "Código Producto")]
-		[Required(ErrorMessage = "El código de producto es requerido.")]
-		public string CodigoProducto { get; set; }
+		public int Id { get; set; }
 		[Display(Name = "Producto")]
 		[Required(ErrorMessage = "Se requiere el nombre del producto")]
 		public string Nombre { get; set; }
@@ -26,7 +24,9 @@ namespace PNT1_Grupo6.Models
 		public string Descripcion { get; set; }
 
 		[DataType(DataType.Currency)]
+		[DisplayFormat(DataFormatString = "{0:C}")]
+		[Column(TypeName = "decimal(10, 2)")]
 		[Required(ErrorMessage = "Establezca un precio.")]
-		public double PrecioVenta { get; set; }
+		public decimal PrecioVenta { get; set; }
 	}
 }

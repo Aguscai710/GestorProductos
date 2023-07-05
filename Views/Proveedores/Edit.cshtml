@@ -19,12 +19,6 @@
     <div class="col-md-4">
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="Id" />
-            <div class="form-group">
-                <label asp-for="CodigoProveedor" class="control-label"></label>
-                <input asp-for="CodigoProveedor" class="form-control" readonly />
-                <span asp-validation-for="CodigoProveedor" class="text-danger"></span>
-            </div>
             <div class="form-group">
                 <label asp-for="Nombre" class="control-label"></label>
                 <input asp-for="Nombre" class="form-control" />

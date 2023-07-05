@@ -1,15 +1,16 @@
-﻿@model IEnumerable<PNT1_Grupo6.Models.OrdenCompra>
+@model IEnumerable<PNT1_Grupo6.ViewModels.OrdenCompraViewModel>
 
 @{
     ViewData["Title"] = "Index";
 }
 
-<h1>Ordenes de Compra</h1>
+<h1>Index</h1>
 @if (TempData["OrdenCompraError"] != null)
 {
     <div class="alert alert-danger">
         @TempData["OrdenCompraError"]
-    </div>}
+    </div>
+}
 
 <p>
     Ordenar por:
@@ -18,28 +19,28 @@
         <option value="NumeroOrden">Número de Orden</option>
         <option value="MayorPrecioTotal">Mayor Precio Total</option>
         <option value="MenorPrecioTotal">Menor Precio Total</option>
-        <option value="nombreProducto">Nombre de Producto</option>
-        <option value="nombreProveedor">Nombre de Proveedor</option>
+        <option value="Producto">Nombre de Producto</option>
+        <option value="Proveedor">Nombre de Proveedor</option>
     </select>
 </p>
 
 <p>
-    <a class="btn-create" asp-action="Create">Crear nuevo</a>
+    <a asp-action="Create">Create New</a>
 </p>
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.NumeroOrden)
+                @Html.DisplayNameFor(model => model.Id)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.CodigoProveedor)
+                @Html.DisplayNameFor(model => model.ProveedorId)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.NombreProveedor)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.CodigoProducto)
+                @Html.DisplayNameFor(model => model.ProductoId)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.NombreProducto)
@@ -62,55 +63,54 @@
     <tbody>
         @foreach (var item in Model)
         {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.NumeroOrden)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.CodigoProveedor)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.NombreProveedor)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.CodigoProducto)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.NombreProducto)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.PrecioUnitario)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Cantidad)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.PrecioTotal)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Estado)
-                </td>
-                <td>
-                    
-                        <a class="verde" asp-action="Edit" asp-route-id="@item.Id">Editar</a> |
-                        <a class="amarillo" asp-action="Details" asp-route-id="@item.Id">Detalles</a> |
-                        <a class="rojo" asp-action="Delete" asp-route-id="@item.Id">Eliminar</a>
-                    
-                </td>
-            </tr>
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ProveedorId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NombreProveedor)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ProveedorId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NombreProducto)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PrecioUnitario)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Cantidad)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PrecioTotal)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Estado)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
         }
     </tbody>
 </table>
 
 @section Scripts {
     <script>
-        document.getElementById('orderBySelect').addEventListener('change', function () {
-            var selectedValue = this.value;
-            var url = '@Url.Action("Index", new { orderBy = "placeholder" })';
-            window.location.href = url.replace("placeholder", selectedValue);
-        });
+            document.getElementById('orderBySelect').addEventListener('change', function () {
+                var selectedValue = this.value;
+                var url = '@Url.Action("Index", new { orderBy = "placeholder" })';
+                window.location.href = url.replace("placeholder", selectedValue);
+            });
     </script>
 }
+
 
 
 <style>
