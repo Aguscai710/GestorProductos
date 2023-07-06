@@ -1,0 +1,29 @@
+﻿
+@model BuscarProveedoresViewModel
+
+@{
+    ViewData["Title"] = "ResultadosBusqueda";
+}
+<table>
+    <thead>
+        <tr>
+            <th>Nombre</th>
+            <th>Descripción</th>
+            <!-- Agrega más columnas según tus necesidades -->
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var proveedor in Model.Proveedores)
+        {
+            <tr>
+                <td>@proveedor.Nombre</td>
+                <td>@proveedor.Email</td>
+                <!-- Agrega más celdas según tus necesidades -->
+            </tr>
+        }
+    </tbody>
+</table>
+
+<div>
+    <a class="rojo" asp-action="Index">Volver a la lista</a>
+</div>

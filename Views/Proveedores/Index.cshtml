@@ -13,6 +13,12 @@
 <p>
     <a class="btn-create" asp-action="Create">Crear nuevo</a>
 </p>
+
+<form action="@Url.Action("BuscarPorNombre", "Proveedores")" method="GET">
+    <input type="text" name="q" placeholder="Buscar..." />
+    <button type="submit">Buscar</button>
+</form>
+
 <table class="table">
     <thead>
         <tr>

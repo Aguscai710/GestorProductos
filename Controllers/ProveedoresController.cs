@@ -155,6 +155,24 @@ namespace PNT1_Grupo6.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+        // POST: Proveedores/BuscarPorNombre?q=
+        public async Task<IActionResult> BuscarPorNombre(string q)
+        {
+            /*string query1 = "SELECT * FROM Proveedores WHERE 'Nombre' LIKE '%'" + q + "'%'";*/
+            try
+			{
+                var resultados = await _context.Proveedores.Where(e => e.Nombre.ToLower().Contains(q.ToLower()))
+            .ToListAsync();
+                var viewModel = new BuscarProveedoresViewModel { Proveedores = resultados };
+                return View(viewModel);
+
+            } catch (Exception e)
+			{
+                return NotFound();
+            }
+             
+        }
+
         private bool ProveedorExists(int id)
         {
             return _context.Proveedores.Any(e => e.Id == id);
