@@ -4,7 +4,7 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<h1>Productos</h1>
 @if (TempData["ProductoError"] != null)
 {
     <div class="alert alert-danger">
@@ -70,9 +70,9 @@
                 @Html.DisplayFor(modelItem => item.PrecioVenta)
             </td>
             <td>
-                <a class="verde" asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a class="amarillo" asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a class="rojo" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                <a class="verde" asp-action="Edit" asp-route-id="@item.Id">Editar</a> |
+                <a class="amarillo" asp-action="Details" asp-route-id="@item.Id">Info</a> |
+                <a class="rojo" asp-action="Delete" asp-route-id="@item.Id">Eliminar</a>
             </td>
         </tr>
         }
@@ -140,5 +140,8 @@
         color: black;
         text-decoration: none;
         border-radius: 15px;
+    }
+    .table {
+        border: 3px solid black;
     }
 </style>

@@ -2,15 +2,17 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PNT1_Grupo6.Context;
 
 namespace PNT1_Grupo6.Migrations
 {
     [DbContext(typeof(GestorDatabaseContext))]
-    partial class GestorDatabaseContextModelSnapshot : ModelSnapshot
+    [Migration("20230706004752_PNT1.Grupo6.estilos.finales")]
+    partial class PNT1Grupo6estilosfinales
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

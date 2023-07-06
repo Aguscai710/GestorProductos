@@ -13,34 +13,42 @@
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">PNT1_Grupo6</a>
+        <nav class=" navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3 azul">
+            <div class="container ">
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Gestor de Productos</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
-                    <ul class="navbar-nav flex-grow-1">
+                    <ul class="lista navbar-nav flex-grow-1">
                         @{
                             //var usuario = ViewData["Usuario"] as Usuario;
                         }
                         @if (usuario != null)
                         {
-                            <li class="nav-item">
+                            <li class="burbujas nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Usuarios" asp-action="Index">Usuarios</a>
                             </li>
-                            <li class="nav-item">
+                            <li class="burbujas nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Proveedores" asp-action="Index">Proveedores</a>
                             </li>
-                            <li class="nav-item">
+                            <li class="burbujas nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Productos" asp-action="Index">Productos</a>
                             </li>
-                            <li class="nav-item">
+                            <li class="burbujas nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="OrdenesCompra" asp-action="Index">Órdenes de compra</a>
                             </li>
 
-                            <li class="nav-item">
+
+
+                            <li class="burbujas nav-item">
+                                <form asp-controller="Sessions" asp-action="Logout" method="post">
+                                    <button type="submit" class="btn btn-link nav-link text-dark">Cerrar sesión</button>
+                                </form>
+                            </li>
+
+                            <li class="avatar nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Sessions" asp-action="Index">
                                     <div class="d-flex align-items-center">
                                         <div class="ml-2">
@@ -53,12 +61,6 @@
                                         </div>
                                     </div>
                                 </a>
-                            </li>
-
-                            <li class="nav-item">
-                                <form asp-controller="Sessions" asp-action="Logout" method="post">
-                                    <button type="submit" class="btn btn-link nav-link text-dark">Cerrar sesión</button>
-                                </form>
                             </li>
                         }
                         else
@@ -89,3 +91,21 @@
     @RenderSection("Scripts", required: false)
 </body>
 </html>
+
+<style>
+    .avatar{
+        margin-left:280px;
+        background-color:orange;
+        border-radius:25px;
+    }
+    .avatar-image{
+        color:red;
+    }
+
+    .azul{
+        background-color:blue;
+    }
+
+    
+    
+</style>

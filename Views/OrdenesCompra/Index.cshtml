@@ -4,7 +4,7 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<h1>Ordenes de compra</h1>
 @if (TempData["OrdenCompraError"] != null)
 {
     <div class="alert alert-danger">
@@ -91,9 +91,9 @@
                 @Html.DisplayFor(modelItem => item.Estado)
             </td>
             <td>
-                <a class="verde" asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a class="amarillo" asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a class="rojo" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                <a class="verde" asp-action="Edit" asp-route-id="@item.Id">Editar</a> |
+                <a class="amarillo" asp-action="Details" asp-route-id="@item.Id">Info</a> |
+                <a class="rojo" asp-action="Delete" asp-route-id="@item.Id">Eliminar</a>
             </td>
         </tr>
         }
@@ -132,7 +132,7 @@
         color: white;
         text-decoration: none;
         border-radius: 5px;
-        margin-left: 200px;
+        margin-left: 400px;
     }
 
         .btn-create:hover {
@@ -169,5 +169,8 @@
         text-decoration: none;
         border-radius: 15px;
 
+    }
+    .table {
+        border: 3px solid black;
     }
 </style>
