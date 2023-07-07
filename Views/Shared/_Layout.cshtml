@@ -42,9 +42,10 @@
 
 
 
+                         <div class="derecha">
                             <li class="burbujas nav-item">
                                 <form asp-controller="Sessions" asp-action="Logout" method="post">
-                                    <button type="submit" class="btn btn-link nav-link text-dark">Cerrar sesión</button>
+                                    <button type="submit" class="btn btn-link nav-link text-dark sesion">Cerrar sesión</button>
                                 </form>
                             </li>
 
@@ -62,6 +63,7 @@
                                     </div>
                                 </a>
                             </li>
+                         </div>
                         }
                         else
                         {
@@ -82,7 +84,7 @@
 
     <footer class="border-top footer text-muted">
         <div class="container">
-            &copy; 2023 - PNT1_Grupo6 - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            &copy; 2023 - Gestor de producros - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
@@ -94,18 +96,28 @@
 
 <style>
     .avatar{
-        margin-left:280px;
+        
         background-color:orange;
         border-radius:25px;
     }
     .avatar-image{
         color:red;
+        
     }
 
     .azul{
         background-color:blue;
     }
+    .derecha{
+        display:flex;
+        margin-left:280px;
 
+    }
+    .
+    .sesion:hover{
+        text-decoration:underline;
+        
+    }
     
     
 </style>

@@ -115,8 +115,9 @@
     </tbody>
 </table>
 
-<div>
+<div class="resumen">
     <h2>Resumen de Datos</h2>
+   
     <p>Número total de órdenes: @originalList.Count()</p>
     <p>Número de órdenes por estado:</p>
     <ul>
@@ -219,4 +220,14 @@
     .table {
         border: 3px solid black;
     }
+
+    .resumen {
+        border: 5px solid black;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        background-color: #1861ac;
+        color:white;
+    }
+    
 </style>
