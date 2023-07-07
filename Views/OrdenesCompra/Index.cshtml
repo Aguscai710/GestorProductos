@@ -1,7 +1,9 @@
 @model IEnumerable<PNT1_Grupo6.ViewModels.OrdenCompraViewModel>
+@using PNT1_Grupo6.ViewModels
 
 @{
     ViewData["Title"] = "Index";
+    var originalList = ViewData["OriginalList"] as List<OrdenCompraViewModel>;
 }
 
 <h1>Ordenes de compra</h1>
@@ -26,6 +28,19 @@
         <option value="Proveedor">Nombre de Proveedor</option>
     </select>
 </p>
+
+<p>
+    <label for="nombreProveedor">Buscar por nombre de proveedor:</label>
+    <input type="text" id="nombreProveedor" name="nombreProveedor">
+    <button onclick="searchProveedor()">Buscar por proveedor</button>
+</p>
+
+<p>
+    <label for="nombreProducto">Buscar por nombre de producto:</label>
+    <input type="text" id="nombreProducto" name="nombreProducto">
+    <button onclick="searchProducto()">Buscar por producto</button>
+</p>
+
 <table class="table">
     <thead>
         <tr>
@@ -62,56 +77,60 @@
     <tbody>
         @foreach (var item in Model)
         {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Id)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ProveedorId)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.NombreProveedor)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ProveedorId)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.NombreProducto)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.PrecioUnitario)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Cantidad)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.PrecioTotal)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Estado)
-            </td>
-            <td>
-                <a class="verde" asp-action="Edit" asp-route-id="@item.Id">Editar</a> |
-                <a class="amarillo" asp-action="Details" asp-route-id="@item.Id">Info</a> |
-                <a class="rojo" asp-action="Delete" asp-route-id="@item.Id">Eliminar</a>
-            </td>
-        </tr>
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Id)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ProveedorId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NombreProveedor)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ProveedorId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NombreProducto)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PrecioUnitario)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Cantidad)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PrecioTotal)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Estado)
+                </td>
+                <td>
+                    <a class="verde" asp-action="Edit" asp-route-id="@item.Id">Editar</a> |
+                    <a class="amarillo" asp-action="Details" asp-route-id="@item.Id">Info</a> |
+                    <a class="rojo" asp-action="Delete" asp-route-id="@item.Id">Eliminar</a>
+                </td>
+            </tr>
         }
     </tbody>
 </table>
 
 <div>
     <h2>Resumen de Datos</h2>
-    <p>Número total de órdenes: @Model.Count()</p>
+    <p>Número total de órdenes: @originalList.Count()</p>
     <p>Número de órdenes por estado:</p>
     <ul>
         @foreach (EstadoOrdenCompra estado in Enum.GetValues(typeof(EstadoOrdenCompra)))
         {
-            <li>@estado.ToString(): @Model.Count(o => o.Estado == estado)</li>
+            <li>@estado.ToString(): @originalList.Count(o => o.Estado == estado)</li>
         }
     </ul>
-    <p>Producto más pedido: @Model.OrderByDescending(o => o.Cantidad).FirstOrDefault()?.NombreProducto</p>
-    <p>Proveedor más elegido: @Model.GroupBy(o => o.NombreProveedor).OrderByDescending(g => g.Count()).FirstOrDefault()?.Key</p>
+    @{
+        var productoMasPedido = originalList.OrderByDescending(o => o.Cantidad).FirstOrDefault()?.NombreProducto;
+        var proveedorMasElegido = originalList.GroupBy(o => o.NombreProveedor).OrderByDescending(g => g.Count()).FirstOrDefault()?.Key;
+    }
+    <p>Producto más pedido: @productoMasPedido</p>
+    <p>Proveedor más elegido: @proveedorMasElegido</p>
 </div>
 
 @section Scripts {
@@ -122,14 +141,27 @@
                 window.location.href = url.replace("placeholder", selectedValue);
             });
     </script>
+    <script>
+        function searchProveedor() {
+            var supplierName = document.getElementById("nombreProveedor").value;
+            var url = '/OrdenesCompra/Index?nombreProveedor=' + encodeURIComponent(supplierName);
+            window.location.href = url;
+        }
+
+        function searchProducto() {
+            var productName = document.getElementById("nombreProducto").value;
+            var url = '/OrdenesCompra/Index?nombreProducto=' + encodeURIComponent(productName);
+            window.location.href = url;
+        }
+    </script>
 }
 
 
 
 <style>
-    .table{
-        
+    .table {
     }
+
     .fondo-tabla {
         background-color: darkgray;
         border: 3px solid black;
@@ -164,7 +196,7 @@
         color: black;
         text-decoration: none;
         border-radius: 15px;
-        margin:2px;
+        margin: 2px;
     }
 
     .amarillo {
@@ -182,8 +214,8 @@
         color: black;
         text-decoration: none;
         border-radius: 15px;
-
     }
+
     .table {
         border: 3px solid black;
     }

@@ -21,7 +21,7 @@ namespace PNT1_Grupo6.Controllers
         }
 
         // GET: OrdenesCompra
-        public async Task<IActionResult> Index(string orderBy)
+        public async Task<IActionResult> Index(string orderBy, string nombreProveedor, string nombreProducto)
         {
             var ordenesCompra = await _context.OrdenesCompra.ToListAsync();
 
@@ -37,6 +37,23 @@ namespace PNT1_Grupo6.Controllers
                 NombreProveedor = _context.Proveedores.FirstOrDefault(p => p.Id == o.ProveedorId)?.Nombre,
                 NombreProducto = _context.Productos.FirstOrDefault(p => p.Id == o.ProductoId)?.Nombre
             }).ToList();
+
+            // Almacenar la lista original en ViewData Para la parte del resumen de ordenes
+            ViewData["OriginalList"] = ordenesCompraViewModel.ToList();
+
+            if (!string.IsNullOrEmpty(nombreProveedor))
+            {
+                ordenesCompraViewModel = ordenesCompraViewModel
+                    .Where(o => o.NombreProveedor.ToLower().Contains(nombreProveedor.ToLower()))
+                    .ToList();
+            }
+
+            if (!string.IsNullOrEmpty(nombreProducto))
+            {
+                ordenesCompraViewModel = ordenesCompraViewModel
+                    .Where(o => o.NombreProducto.ToLower().Contains(nombreProducto.ToLower()))
+                    .ToList();
+            }
 
             // Aplicar ordenamiento si se especifica
             if (!string.IsNullOrEmpty(orderBy))
