@@ -100,6 +100,20 @@
     </tbody>
 </table>
 
+<div>
+    <h2>Resumen de Datos</h2>
+    <p>Número total de órdenes: @Model.Count()</p>
+    <p>Número de órdenes por estado:</p>
+    <ul>
+        @foreach (EstadoOrdenCompra estado in Enum.GetValues(typeof(EstadoOrdenCompra)))
+        {
+            <li>@estado.ToString(): @Model.Count(o => o.Estado == estado)</li>
+        }
+    </ul>
+    <p>Producto más pedido: @Model.OrderByDescending(o => o.Cantidad).FirstOrDefault()?.NombreProducto</p>
+    <p>Proveedor más elegido: @Model.GroupBy(o => o.NombreProveedor).OrderByDescending(g => g.Count()).FirstOrDefault()?.Key</p>
+</div>
+
 @section Scripts {
     <script>
             document.getElementById('orderBySelect').addEventListener('change', function () {
