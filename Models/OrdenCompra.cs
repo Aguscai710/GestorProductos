@@ -25,7 +25,7 @@ namespace PNT1_Grupo6.Models
 		[DisplayFormat(DataFormatString = "{0:C}")]
 		[Column(TypeName = "decimal(10, 2)")]
 		[Display(Name = "Precio unitario")]
-		[Required(ErrorMessage = "Acordar y fijar el precio con el proveedor.")]
+		[RegularExpression(@"^\d+$", ErrorMessage = "El precio debe ser un número entero.")]
 		public decimal PrecioUnitario { get; set; }
 
 		public int Cantidad { get; set; }

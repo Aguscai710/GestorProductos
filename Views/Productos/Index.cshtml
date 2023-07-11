@@ -69,10 +69,10 @@
             <td>
                 @Html.DisplayFor(modelItem => item.PrecioVenta)
             </td>
-            <td>
-                <a class="verde" asp-action="Edit" asp-route-id="@item.Id">Editar</a> |
-                <a class="amarillo" asp-action="Details" asp-route-id="@item.Id">Info</a> |
-                <a class="rojo" asp-action="Delete" asp-route-id="@item.Id">Eliminar</a>
+            <td class="btn-group">
+                <a class="verde btn-group-item" asp-action="Edit" asp-route-id="@item.Id">Editar</a> |
+                <a class="amarillo btn-group-item" asp-action="Details" asp-route-id="@item.Id">Info</a> |
+                <a class="rojo btn-group-item" asp-action="Delete" asp-route-id="@item.Id">Eliminar</a>
             </td>
         </tr>
         }

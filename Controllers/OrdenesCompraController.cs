@@ -223,7 +223,15 @@ namespace PNT1_Grupo6.Controllers
         }
         private bool ValidatePrice(decimal price)
         {
-            return (price > 0);
+            bool isValid = true;
+            string priceString = price.ToString();
+
+            if (price < 0)
+            {
+                isValid = false;
+            }
+
+            return isValid;
         }
         private bool ValidateQuantity(int quantity)
         {
@@ -240,7 +248,7 @@ namespace PNT1_Grupo6.Controllers
             }
             else if (!ValidatePrice(order.PrecioUnitario))
             {
-                TempData["OrdenCompraError"] = "Elija un precio real.";
+                TempData["OrdenCompraError"] = "Elija un precio real y entero.";
                 isValid = false;
             }
             else if (!ValidateQuantity(order.Cantidad))
